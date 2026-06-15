@@ -6,7 +6,7 @@ from datetime import datetime
 class User:
     """Lớp đại diện cho người dùng hệ thống."""
 
-    VALID_ROLES = ['Admin', 'User']
+    VALID_ROLES = ['Admin', 'User', 'admin', 'user']
 
     def __init__(
         self,
@@ -77,12 +77,16 @@ class User:
     @property
     def role(self):
         return self._role
-
+    
     @role.setter
     def role(self, value):
-        if value not in self.VALID_ROLES:
-            raise ValueError(f"Vai trò phải là một trong: {', '.join(self.VALID_ROLES)}")
-        self._role = value
+        if not value:
+            self._role = 'User'
+            return
+        normalized_role = str(value).strip().capitalize()
+        if normalized_role not in self.VALID_ROLES:
+            raise ValueError(f"Role invalid. Accepted values: {', '.join(self.VALID_ROLES)}")
+        self._role = normalized_role
 
     @property
     def created_at(self):

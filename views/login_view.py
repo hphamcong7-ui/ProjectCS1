@@ -79,20 +79,15 @@ class LoginDialog(QDialog):
         password = self.txt_password.text()
 
         if not username or not password:
-            QMessageBox.warning(self, "Cảnh báo", "Vui lòng nhập đầy đủ thông tin tài khoản.")
+            QMessageBox.warning(self, "Cảnh báo", "Vui lòng nhập đầy đủ thông tin.")
             return
 
         try:
             user = self.user_controller.login(username, password)
             if user:
-                if hasattr(user, 'role'):
-                    user.role = str(user.role).lower()
-                else:
-                    user.role = 'user'
-                    
                 self.authenticated_user = user
                 self.accept()
             else:
                 QMessageBox.critical(self, "Lỗi đăng nhập", "Thông tin tài khoản hoặc mật khẩu không chính xác.")
         except Exception as e:
-            QMessageBox.critical(self, "Lỗi hệ thống", f"Lỗi xử lý phiên đăng nhập: {str(e)}")
+            QMessageBox.critical(self, "Lỗi hệ thống", f"Lỗi session: {str(e)}")

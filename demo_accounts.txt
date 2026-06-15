@@ -6,6 +6,6 @@ password: 123456
 role: Admin
 
 Borrower account:
-email: borrower@lab.local
+email: user@lab.local
 password: 123456
 role: User
